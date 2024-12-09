@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
-import { Check, CheckCheck } from 'lucide-react';
+import { Check, CheckCheck, ArrowRight } from 'lucide-react';
 import { MessageContent } from './MessageContent';
 import { theme } from '../../../shared/utils/theme';
 import type { Message } from '../types';
@@ -9,9 +9,26 @@ interface ChatMessageProps {
   message: Message;
   isOwnMessage: boolean;
   onSelect?: () => void;
+  onSuggestionClick?: (suggestion: string) => void;
 }
 
-export function ChatMessage({ message, isOwnMessage, onSelect }: ChatMessageProps) {
+export function ChatMessage({ 
+  message, 
+  isOwnMessage, 
+  onSelect,
+  onSuggestionClick 
+}: ChatMessageProps) {
+  const getQuestion = () => {
+    if (message.content.type === 'agent-response' && 
+        typeof message.content.data !== 'string' && 
+        message.content.data.question) {
+      return message.content.data.question;
+    }
+    return null;
+  };
+
+  const question = getQuestion();
+
   return (
     <div
       className={`flex ${isOwnMessage ? 'justify-end' : 'justify-start'} mb-4`}
@@ -49,6 +66,22 @@ export function ChatMessage({ message, isOwnMessage, onSelect }: ChatMessageProp
         >
           <MessageContent content={message.content} />
         </div>
+
+        {/* Follow-up Question */}
+        {!isOwnMessage && question && (
+          <button
+            onClick={() => onSuggestionClick?.(question)}
+            className="mt-2 flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors"
+            style={{
+              backgroundColor: theme.colors.primary.light,
+              color: theme.colors.primary.main,
+            }}
+          >
+            <span>Suggested: {question}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        )}
+
         <div
           className="flex items-center mt-1 text-xs"
           style={{ color: theme.colors.text.secondary }}

@@ -8,13 +8,11 @@ import { useChat } from "../hooks/useChat";
 import { theme } from "../../../shared/utils/theme";
 import { v4 as uuidv4 } from "uuid";
 
-// Mock users - In a real app, these would come from auth/context
 const currentUser = {
   id: uuidv4(),
   name: "You",
   role: "User",
-  avatar:
-    "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop&q=80",
+  avatar: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop&q=80",
   isOnline: true,
   type: "Human",
   description: "Project Owner",
@@ -32,8 +30,7 @@ const strategyAgent = {
   id: uuidv4(),
   name: "Strategy Consultant",
   role: "Strategy Planning",
-  avatar:
-    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
+  avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
   isOnline: true,
   type: "Human",
   description: "Develops and optimizes go-to-market strategies",
@@ -52,31 +49,34 @@ export default function ChatPage() {
   const location = useLocation();
   const userPrompt = location.state?.prompt || "";
   const [isChatExpanded, setIsChatExpanded] = React.useState(true);
-  const [hasInitialized, setHasInitialized] = React.useState(false);
+  const [initialized, setInitialized] = React.useState(false);
 
-  const { messages, isTyping, selectedOutput, handleSendMessage } = useChat({
+  const {
+    messages,
+    isTyping,
+    selectedOutput,
+    handleSendMessage,
+    initializeChat
+  } = useChat({
     currentUser,
     recipient: strategyAgent,
   });
 
-  // Initialize chat with user's prompt if available
   React.useEffect(() => {
-    if (userPrompt && !hasInitialized) {
-      handleSendMessage(userPrompt);
-      setHasInitialized(true);
+    if (userPrompt && !initialized) {
+      initializeChat(userPrompt);
+      setInitialized(true);
     }
-  }, [userPrompt, handleSendMessage, hasInitialized]);
+  }, [userPrompt, initializeChat, initialized]);
 
   return (
     <div className="flex h-screen bg-white relative">
-      {/* Chat Section */}
       <div
         className={`h-full flex flex-col border-r transition-all duration-300 relative ${
           isChatExpanded ? "w-[30%]" : "w-[60px]"
         }`}
         style={{ borderColor: theme.colors.border.light }}
       >
-        {/* Toggle Button */}
         <button
           onClick={() => setIsChatExpanded(!isChatExpanded)}
           className="absolute -right-4 top-1/2 -translate-y-1/2 z-50 w-8 h-16 bg-white border rounded-r-xl shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors"
@@ -131,7 +131,6 @@ export default function ChatPage() {
         </div>
       </div>
 
-      {/* Output Preview */}
       <div className="flex-1 overflow-hidden">
         {selectedOutput ? (
           <OutputPreview message={messages[messages.length - 1]} />

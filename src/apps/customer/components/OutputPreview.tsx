@@ -2,6 +2,7 @@ import React from 'react';
 import { theme } from '../../../shared/utils/theme';
 import { Message } from '../types';
 import { ProposalView } from './proposal/ProposalView';
+import { FileText, Clock } from 'lucide-react';
 import type { SalesProposal } from '../types/proposal';
 
 interface OutputPreviewProps {
@@ -114,24 +115,45 @@ export function OutputPreview({ message }: OutputPreviewProps) {
   return (
     <div className="h-full overflow-y-auto">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-4">
-            <img
-              src={message.sender.avatar}
-              alt={message.sender.name}
-              className="w-10 h-10 rounded-full"
-            />
-            <div>
-              <h2 className="font-medium" style={{ color: theme.colors.text.primary }}>
-                {message.sender.name}
-              </h2>
-              <p className="text-sm" style={{ color: theme.colors.text.secondary }}>
-                {new Date(message.timestamp).toLocaleString()}
-              </p>
+        {/* New Header */}
+        <div 
+          className="sticky top-0 bg-white border-b px-6 py-4 mb-6 z-10"
+          style={{ borderColor: theme.colors.border.light }}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div 
+                className="p-2 rounded-lg"
+                style={{ backgroundColor: theme.colors.primary.light }}
+              >
+                <FileText 
+                  className="w-5 h-5"
+                  style={{ color: theme.colors.primary.main }}
+                />
+              </div>
+              <div>
+                <h2 
+                  className="text-lg font-semibold"
+                  style={{ color: theme.colors.text.primary }}
+                >
+                  Strategy Proposal
+                </h2>
+                <div 
+                  className="flex items-center gap-2 text-sm"
+                  style={{ color: theme.colors.text.secondary }}
+                >
+                  <Clock className="w-4 h-4" />
+                  <span>Last updated {new Date(message.timestamp).toLocaleString()}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        {message.content.type === 'agent-response' && renderOutput(message.content.data)}
+
+        {/* Content */}
+        <div className="px-6">
+          {message.content.type === 'agent-response' && renderOutput(message.content.data)}
+        </div>
       </div>
     </div>
   );

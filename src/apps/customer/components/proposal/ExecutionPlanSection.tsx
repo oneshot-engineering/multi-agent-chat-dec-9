@@ -7,6 +7,10 @@ interface ExecutionPlanSectionProps {
 }
 
 export function ExecutionPlanSection({ executionPlan }: ExecutionPlanSectionProps) {
+  if (!executionPlan || !executionPlan.preparation || !executionPlan.weekly_workflow) {
+    return null;
+  }
+
   return (
     <div className="bg-white rounded-lg p-6 border mb-6" style={{ borderColor: theme.colors.border.light }}>
       <h3 className="text-xl font-semibold mb-6" style={{ color: theme.colors.text.primary }}>
@@ -33,7 +37,7 @@ export function ExecutionPlanSection({ executionPlan }: ExecutionPlanSectionProp
                   {week.replace('_', ' ').toUpperCase()}
                 </h5>
                 <ul className="list-disc list-inside space-y-1">
-                  {tasks.map((task, index) => (
+                  {Array.isArray(tasks) && tasks.map((task, index) => (
                     <li key={index} className="text-sm" style={{ color: theme.colors.text.secondary }}>{task}</li>
                   ))}
                 </ul>

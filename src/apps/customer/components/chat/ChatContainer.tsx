@@ -24,6 +24,10 @@ export function ChatContainer({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
+  const handleSuggestionClick = (suggestion: string) => {
+    onSendMessage(suggestion);
+  };
+
   return (
     <div className="h-full flex flex-col">
       <div 
@@ -35,6 +39,7 @@ export function ChatContainer({
             key={message.id}
             message={message}
             isOwnMessage={message.sender.role === 'User'}
+            onSuggestionClick={handleSuggestionClick}
           />
         ))}
         {isTyping && <TypingIndicator sender={typingUser} />}

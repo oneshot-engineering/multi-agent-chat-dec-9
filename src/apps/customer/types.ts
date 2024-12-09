@@ -3,6 +3,7 @@ import { SalesProposal } from './types/proposal';
 
 export interface AgentResponse {
   reasoning: string;
+  question?: string;
   output: {
     type: 'companies' | 'table' | 'strategy' | 'analysis' | 'proposal';
     data: any;

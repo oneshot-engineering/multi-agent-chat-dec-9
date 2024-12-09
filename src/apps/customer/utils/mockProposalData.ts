@@ -69,8 +69,9 @@ export const mockConversation: MockConversation[] = [
     response: {
       sender: "agent",
       data: {
-        reasoning: "Sure, let me understand your company a bit first.",
-        question: "What is your company's website domain?",
+        reasoning:
+          "Sure, I'll help you build the strategy, but I need to understand your company first.",
+        question: "What is your company's website?",
       },
     },
   },
@@ -82,50 +83,147 @@ export const mockConversation: MockConversation[] = [
     response: {
       sender: "agent",
       data: {
-        reasoning:
-          "Thank you for providing the domain. I have now researched your company and summarized the details.",
+        reasoning: "Thank you! Let me research your company.",
         preview: {
+          company_name : mockProposal.company_name,
           short_description: mockProposal.short_description,
         },
-        question:
-          "Now, let's build your personas. Who are your target audiences?",
+        question: "Do you want me to add target audiences?",
       },
     },
   },
   {
     request: {
       sender: "user",
-      data: "Sales Managers and SDR Managers.",
+      data: "Yes, let's add target audiences.",
     },
     response: {
       sender: "agent",
       data: {
         reasoning:
-          "Great! I've added personas for Sales Managers and SDR Managers to your strategy. Let’s define KPIs next.",
+          "Okay, I’ve now added target audiences like Sales Managers and SDR Managers based on your company profile.",
         preview: {
           personas: mockProposal.personas,
         },
-        question:
-          "What are the key metrics you'd like to track (e.g., response rates, meetings booked, pipeline growth)?",
+        question: "Do you want to add key metrics for your outbound campaign?",
       },
     },
   },
   {
     request: {
       sender: "user",
-      data: "Response rates and meetings booked.",
+      data: "Yes, let's add key metrics.",
     },
     response: {
       sender: "agent",
       data: {
         reasoning:
-          "Got it. I've set up KPIs based on response rates and meetings booked. Now, let's focus on the execution plan.",
+          "I’ve added key metrics like response rates, meetings booked, and pipeline growth for your campaign.",
         preview: {
           KPIs: mockProposal.KPIs,
         },
-        question:
-          "Would you like me to create a detailed week-by-week plan for your outreach efforts?",
+        question: "Should I prepare an execution plan next?",
+      },
+    },
+  },
+  {
+    request: {
+      sender: "user",
+      data: "Yes, prepare an execution plan.",
+    },
+    response: {
+      sender: "agent",
+      data: {
+        reasoning:
+          "I’ve prepared a detailed week-by-week execution plan for multi-channel outreach.",
+        preview: {
+          execution_plan: mockProposal.execution_plan,
+        },
+        question: "Do you want to prioritize certain channels?",
+      },
+    },
+  },
+  {
+    request: {
+      sender: "user",
+      data: "Yes, let's prioritize Email and LinkedIn.",
+    },
+    response: {
+      sender: "agent",
+      data: {
+        reasoning:
+          "I’ve prioritized Email and LinkedIn for your outreach efforts and updated the plan.",
+        preview: {
+          channels: mockProposal.channels,
+        },
+        question: "Should we set monthly volume targets for these channels?",
+      },
+    },
+  },
+  {
+    request: {
+      sender: "user",
+      data: "Yes, set monthly targets.",
+    },
+    response: {
+      sender: "agent",
+      data: {
+        reasoning:
+          "Monthly targets have been set for Email, LinkedIn, and Cold Calling, ensuring alignment with your strategy.",
+        preview: {
+          monthly_targets: mockProposal.monthly_targets,
+        },
+        question: "Would you like me to add specific tools for this strategy?",
+      },
+    },
+  },
+  {
+    request: {
+      sender: "user",
+      data: "Yes, let's add tools like CRM and Analytics Dashboard.",
+    },
+    response: {
+      sender: "agent",
+      data: {
+        reasoning:
+          "I’ve included CRM, Email Automation, and an Analytics Dashboard to support your strategy.",
+        preview: {
+          tools: mockProposal.tools,
+        },
+        question: "Do you want to define expected outcomes?",
+      },
+    },
+  },
+  {
+    request: {
+      sender: "user",
+      data: "Yes, define expected outcomes.",
+    },
+    response: {
+      sender: "agent",
+      data: {
+        reasoning:
+          "I’ve defined expected outcomes like increased sales efficiency and higher conversion rates.",
+        preview: {
+          expected_outcomes: mockProposal.expected_outcomes,
+        },
+        question: "Anything else to add?",
+      },
+    },
+  },
+  {
+    request: {
+      sender: "user",
+      data: "No, this looks good.",
+    },
+    response: {
+      sender: "agent",
+      data: {
+        reasoning:
+          "Your outbound strategy is now complete, covering all aspects from target audiences to tools and outcomes.",
+        output: "Finalized outbound strategy based on the mockProposal structure.",
       },
     },
   },
 ];
+

@@ -88,7 +88,7 @@ export interface MockConversation {
       reasoning?: string;
       question?: string;
       preview?: Partial<SalesProposal>;
+      output?: string;
     };
   };
 }
-[];

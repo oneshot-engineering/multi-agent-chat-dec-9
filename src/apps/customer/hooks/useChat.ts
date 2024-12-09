@@ -12,9 +12,14 @@ export function useChat({ currentUser, recipient }: UseChatProps) {
   const [isTyping, setIsTyping] = useState(false);
   const [selectedOutput, setSelectedOutput] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [processingMessage, setProcessingMessage] = useState(false);
 
   const handleSendMessage = useCallback(async (content: string) => {
+    if (processingMessage) return;
+
     try {
+      setProcessingMessage(true);
+      
       // Create and add user message
       const userMessage: Message = {
         id: crypto.randomUUID(),
@@ -39,14 +44,21 @@ export function useChat({ currentUser, recipient }: UseChatProps) {
       setError('Failed to send message. Please try again.');
     } finally {
       setIsTyping(false);
+      setProcessingMessage(false);
     }
-  }, [currentUser, recipient]);
+  }, [currentUser, recipient, processingMessage]);
+
+  const initializeChat = useCallback(async (initialPrompt: string) => {
+    if (!initialPrompt.trim() || processingMessage) return;
+    await handleSendMessage(initialPrompt);
+  }, [handleSendMessage, processingMessage]);
 
   return {
     messages,
     isTyping,
     selectedOutput,
     error,
-    handleSendMessage
+    handleSendMessage,
+    initializeChat
   };
 }
