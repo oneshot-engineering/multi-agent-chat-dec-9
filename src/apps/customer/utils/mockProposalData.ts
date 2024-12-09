@@ -70,8 +70,7 @@ export const mockConversation: MockConversation[] = [
       sender: "agent",
       data: {
         reasoning:
-          "Sure, I'll help you build the strategy, but I need to understand your company first.",
-        question: "What is your company's website?",
+          "Sure, I'll help you build the strategy, but I need to understand your company first. What is your company's website?",
       },
     },
   },
@@ -83,9 +82,9 @@ export const mockConversation: MockConversation[] = [
     response: {
       sender: "agent",
       data: {
-        reasoning: "Thank you! Let me research your company.",
+        reasoning: "Thank you! I have researched your company. Please review!",
         preview: {
-          company_name : mockProposal.company_name,
+          company_name: mockProposal.company_name,
           short_description: mockProposal.short_description,
         },
         question: "Do you want me to add target audiences?",
@@ -221,9 +220,9 @@ export const mockConversation: MockConversation[] = [
       data: {
         reasoning:
           "Your outbound strategy is now complete, covering all aspects from target audiences to tools and outcomes.",
-        output: "Finalized outbound strategy based on the mockProposal structure.",
+        output:
+          "Finalized outbound strategy based on the mockProposal structure.",
       },
     },
   },
 ];
-
