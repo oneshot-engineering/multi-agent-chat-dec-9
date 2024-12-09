@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import { Message, User } from "../../../types";
-import { mockProposal } from "../utils/mockProposalData";
+
+import { mockConversation, mockProposal } from "../utils/mockProposalData";
+import { MockConversation } from "../types/proposal";
 
 // Response type definition
 export interface ChatResponse {
@@ -12,63 +14,33 @@ export interface ChatResponse {
 let currentProposalState: Partial<typeof mockProposal> = {};
 
 // Helper to determine which part of proposal to return based on message
-function getProposalSection(message: string): Partial<typeof mockProposal> {
-  const lowercaseMsg = message.toLowerCase();
+function getProposalSection(
+  conversationData: MockConversation
+): Partial<typeof mockProposal> {
+  const preview = conversationData.response.data.preview;
 
-  // Build proposal incrementally based on keywords
-  if (lowercaseMsg.includes("strategy") || lowercaseMsg.includes("outbound")) {
-    currentProposalState = {
-      company_name: mockProposal.company_name,
-      short_description: mockProposal.short_description,
-    };
-  }
-
-  if (lowercaseMsg.includes("persona") || lowercaseMsg.includes("target")) {
-    currentProposalState = {
-      ...currentProposalState,
-      personas: mockProposal.personas,
-    };
-  }
-
-  if (lowercaseMsg.includes("kpi") || lowercaseMsg.includes("metrics")) {
-    currentProposalState = {
-      ...currentProposalState,
-      KPIs: mockProposal.KPIs,
-    };
-  }
-
-  if (lowercaseMsg.includes("plan") || lowercaseMsg.includes("execution")) {
-    currentProposalState = {
-      ...currentProposalState,
-      execution_plan: mockProposal.execution_plan,
-      monthly_targets: mockProposal.monthly_targets,
-    };
-  }
+  currentProposalState = {
+    ...currentProposalState,
+    ...preview,
+  };
 
   return currentProposalState;
 }
 
 // Helper to get appropriate response message
-function getResponseMessage(message: string): string {
+function getResponseMessage(conversationData: MockConversation): string {
+  const reasoning = conversationData.response.data.reasoning;
+  return reasoning || "echo";
+}
+
+function getMockConversationObject(message: string): MockConversation {
   const lowercaseMsg = message.toLowerCase();
-
-  if (lowercaseMsg.includes("strategy") || lowercaseMsg.includes("outbound")) {
-    return "I understand you're looking for an outbound strategy. Let me help you with that.";
+  for (const conversation of mockConversation) {
+    if (conversation.request.data.toLowerCase() === lowercaseMsg) {
+      return conversation;
+    }
   }
-
-  if (lowercaseMsg.includes("persona") || lowercaseMsg.includes("target")) {
-    return "Great! Let's define your target personas and audience.";
-  }
-
-  if (lowercaseMsg.includes("kpi") || lowercaseMsg.includes("metrics")) {
-    return "I'll help you set up appropriate KPIs to track success.";
-  }
-
-  if (lowercaseMsg.includes("plan") || lowercaseMsg.includes("execution")) {
-    return "Here's a detailed execution plan to achieve your goals.";
-  }
-
-  return "echo";
+  throw new Error("No matching conversation found");
 }
 
 export async function sendMessage(
@@ -80,9 +52,14 @@ export async function sendMessage(
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
+    // Get mock conversation for the corresponding user request
+
+    const conversationData: MockConversation =
+      getMockConversationObject(content);
+
     // Get relevant proposal section and response message
-    const proposalData = getProposalSection(content);
-    const responseMessage = getResponseMessage(content);
+    const proposalData = getProposalSection(conversationData);
+    const responseMessage = getResponseMessage(conversationData);
 
     // Create agent response message
     const message: Message = {

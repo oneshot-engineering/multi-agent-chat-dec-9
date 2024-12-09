@@ -76,3 +76,19 @@ export interface SalesProposal {
   KPIs: KPIs;
   expected_outcomes: ExpectedOutcomes;
 }
+
+export interface MockConversation {
+  request: {
+    sender: "user";
+    data: string;
+  };
+  response: {
+    sender: "agent";
+    data: {
+      reasoning?: string;
+      question?: string;
+      preview?: Partial<SalesProposal>;
+    };
+  };
+}
+[];
