@@ -12,7 +12,8 @@ const currentUser = {
   id: uuidv4(),
   name: "You",
   role: "User",
-  avatar: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop&q=80",
+  avatar:
+    "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop&q=80",
   isOnline: true,
   type: "Human",
   description: "Project Owner",
@@ -30,7 +31,8 @@ const strategyAgent = {
   id: uuidv4(),
   name: "Strategy Consultant",
   role: "Strategy Planning",
-  avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
+  avatar:
+    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
   isOnline: true,
   type: "Human",
   description: "Develops and optimizes go-to-market strategies",
@@ -56,18 +58,16 @@ export default function ChatPage() {
     isTyping,
     selectedOutput,
     handleSendMessage,
-    initializeChat
+    initializeChat,
   } = useChat({
     currentUser,
     recipient: strategyAgent,
   });
 
-  React.useEffect(() => {
-    if (userPrompt && !initialized) {
-      initializeChat(userPrompt);
-      setInitialized(true);
-    }
-  }, [userPrompt, initializeChat, initialized]);
+  if (userPrompt && !initialized) {
+    initializeChat(userPrompt);
+    setInitialized(true);
+  }
 
   return (
     <div className="flex h-screen bg-white relative">
