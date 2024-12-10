@@ -13,8 +13,8 @@ export function Header({ showBack = false, title, subtitle }: HeaderProps) {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="bg-white border-b"
+    <div 
+      className="bg-white border-b sticky top-0 z-50"
       style={{ borderColor: theme.colors.border.light }}
     >
       <div className="max-w-6xl mx-auto px-4 py-4">
@@ -24,19 +24,19 @@ export function Header({ showBack = false, title, subtitle }: HeaderProps) {
               onClick={() => navigate(-1)}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <ArrowLeft
-                className="w-6 h-6"
-                style={{ color: theme.colors.text.primary }}
+              <ArrowLeft 
+                className="w-6 h-6" 
+                style={{ color: theme.colors.text.primary }} 
               />
             </button>
           )}
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <Sparkles
-                className="w-6 h-6"
-                style={{ color: theme.colors.primary.main }}
+              <Sparkles 
+                className="w-6 h-6" 
+                style={{ color: theme.colors.primary.main }} 
               />
-              <h1
+              <h1 
                 className="text-xl font-semibold"
                 style={{ color: theme.colors.text.primary }}
               >
@@ -44,7 +44,7 @@ export function Header({ showBack = false, title, subtitle }: HeaderProps) {
               </h1>
             </div>
             {subtitle && (
-              <p
+              <p 
                 className="text-sm mt-1"
                 style={{ color: theme.colors.text.secondary }}
               >

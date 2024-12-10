@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AgentSelectionPage from './pages/AgentSelectionPage';
 import ChatPage from './pages/ChatPage';
+import CompanyProfilePage from './pages/CompanyProfilePage';
 
 export function CustomerApp() {
   return (
@@ -10,6 +11,7 @@ export function CustomerApp() {
       <Route path="/" element={<HomePage />} />
       <Route path="/select-agents" element={<AgentSelectionPage />} />
       <Route path="/chat/:jobId" element={<ChatPage />} />
+      <Route path="/company-profile" element={<CompanyProfilePage />} />
     </Routes>
   );
 }

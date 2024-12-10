@@ -77,17 +77,16 @@ export const mockConversation: MockConversation[] = [
   {
     request: {
       sender: "user",
-      data: "techsales.ai",
+      data: "oneshot.ai",
     },
     response: {
       sender: "agent",
       data: {
-        reasoning: "Thank you! I have researched your company. Please review!",
-        preview: {
-          company_name: mockProposal.company_name,
-          short_description: mockProposal.short_description,
-        },
-        question: "Do you want me to add target audiences?",
+        reasoning: "I've found your company profile. Let me analyze it for you.",
+        output: {
+          type: "company_profile",
+          data: null
+        }
       },
     },
   },
@@ -100,7 +99,7 @@ export const mockConversation: MockConversation[] = [
       sender: "agent",
       data: {
         reasoning:
-          "Okay, I’ve now added target audiences like Sales Managers and SDR Managers based on your company profile.",
+          "Okay, I've now added target audiences like Sales Managers and SDR Managers based on your company profile.",
         preview: {
           personas: mockProposal.personas,
         },
@@ -117,7 +116,7 @@ export const mockConversation: MockConversation[] = [
       sender: "agent",
       data: {
         reasoning:
-          "I’ve added key metrics like response rates, meetings booked, and pipeline growth for your campaign.",
+          "I've added key metrics like response rates, meetings booked, and pipeline growth for your campaign.",
         preview: {
           KPIs: mockProposal.KPIs,
         },
@@ -134,7 +133,7 @@ export const mockConversation: MockConversation[] = [
       sender: "agent",
       data: {
         reasoning:
-          "I’ve prepared a detailed week-by-week execution plan for multi-channel outreach.",
+          "I've prepared a detailed week-by-week execution plan for multi-channel outreach.",
         preview: {
           execution_plan: mockProposal.execution_plan,
         },
@@ -151,7 +150,7 @@ export const mockConversation: MockConversation[] = [
       sender: "agent",
       data: {
         reasoning:
-          "I’ve prioritized Email and LinkedIn for your outreach efforts and updated the plan.",
+          "I've prioritized Email and LinkedIn for your outreach efforts and updated the plan.",
         preview: {
           channels: mockProposal.channels,
         },
@@ -185,7 +184,7 @@ export const mockConversation: MockConversation[] = [
       sender: "agent",
       data: {
         reasoning:
-          "I’ve included CRM, Email Automation, and an Analytics Dashboard to support your strategy.",
+          "I've included CRM, Email Automation, and an Analytics Dashboard to support your strategy.",
         preview: {
           tools: mockProposal.tools,
         },
@@ -202,7 +201,7 @@ export const mockConversation: MockConversation[] = [
       sender: "agent",
       data: {
         reasoning:
-          "I’ve defined expected outcomes like increased sales efficiency and higher conversion rates.",
+          "I've defined expected outcomes like increased sales efficiency and higher conversion rates.",
         preview: {
           expected_outcomes: mockProposal.expected_outcomes,
         },
@@ -220,8 +219,10 @@ export const mockConversation: MockConversation[] = [
       data: {
         reasoning:
           "Your outbound strategy is now complete, covering all aspects from target audiences to tools and outcomes.",
-        output:
-          "Finalized outbound strategy based on the mockProposal structure.",
+        output: {
+          type: "proposal",
+          data: mockProposal
+        },
       },
     },
   },
