@@ -27,7 +27,6 @@ export function CompanyDescription({
         >
           About
         </h2>
-        {!isEditing && <ChatButton onClick={() => setIsOpen(true)} />}
       </div>
 
       {isEditing ? (
@@ -48,15 +47,6 @@ export function CompanyDescription({
           {data.description}
         </p>
       )}
-
-      <ChatDialog
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onSubmit={handleSubmit}
-        title="Ask about Company Description"
-        placeholder="Ask any question about the company..."
-        messages={messages}
-      />
     </div>
   );
 }

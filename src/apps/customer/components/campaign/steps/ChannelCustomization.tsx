@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
-import { Mail, Linkedin, Phone, Share2, MessageCircle, ChevronRight, ChevronLeft } from 'lucide-react';
-import { theme } from '../../../../../shared/utils/theme';
+import React, { useState } from "react";
 import {
-  EmailSettings,
+  Mail,
+  Linkedin,
+  Phone,
+  Share2,
+  MessageCircle,
+  ChevronRight,
+  ChevronLeft,
+} from "lucide-react";
+import { theme } from "../../../../../shared/utils/theme";
+import {
   LinkedInSettings,
   ColdCallSettings,
   SocialSettings,
-  CommunitySettings
-} from '../channel-settings';
-import type { Channel, ChannelSettings as ChannelSettingsType } from '../../../types/campaign';
+  CommunitySettings,
+} from "../channel-settings";
+
+import EmailSequence from "../channel-settings/EmailSequence";
+import type {
+  Channel,
+  ChannelSettings as ChannelSettingsType,
+} from "../../../types/campaign";
 
 interface ChannelCustomizationProps {
   channels: Channel[];
@@ -16,7 +28,11 @@ interface ChannelCustomizationProps {
   onChange: (settings: Partial<ChannelSettingsType>) => void;
 }
 
-export function ChannelCustomization({ channels, settings, onChange }: ChannelCustomizationProps) {
+export function ChannelCustomization({
+  channels,
+  settings,
+  onChange,
+}: ChannelCustomizationProps) {
   const [currentChannelIndex, setCurrentChannelIndex] = useState(0);
   const currentChannel = channels[currentChannelIndex];
 
@@ -35,16 +51,16 @@ export function ChannelCustomization({ channels, settings, onChange }: ChannelCu
   const updateSettings = (channelSettings: any) => {
     onChange({
       ...settings,
-      [currentChannel]: channelSettings
+      [currentChannel]: channelSettings,
     });
   };
 
   const channelComponents = {
-    email: EmailSettings,
+    email: EmailSequence,
     linkedin: LinkedInSettings,
-    'cold-call': ColdCallSettings,
+    "cold-call": ColdCallSettings,
     social: SocialSettings,
-    community: CommunitySettings
+    community: CommunitySettings,
   };
 
   const ChannelComponent = channelComponents[currentChannel];
@@ -52,16 +68,13 @@ export function ChannelCustomization({ channels, settings, onChange }: ChannelCu
   return (
     <div>
       <div className="text-center mb-8">
-        <h2 
+        <h2
           className="text-2xl font-semibold mb-2"
           style={{ color: theme.colors.text.primary }}
         >
           Customize Your Channels
         </h2>
-        <p 
-          className="text-lg"
-          style={{ color: theme.colors.text.secondary }}
-        >
+        <p className="text-lg" style={{ color: theme.colors.text.secondary }}>
           Configure settings for each selected channel
         </p>
       </div>
@@ -76,10 +89,7 @@ export function ChannelCustomization({ channels, settings, onChange }: ChannelCu
           <ChevronLeft className="w-6 h-6" />
         </button>
         <div className="text-center">
-          <p 
-            className="text-sm"
-            style={{ color: theme.colors.text.secondary }}
-          >
+          <p className="text-sm" style={{ color: theme.colors.text.secondary }}>
             Channel {currentChannelIndex + 1} of {channels.length}
           </p>
         </div>

@@ -111,7 +111,6 @@ export function PersonaSection({
               </h3>
             )}
           </div>
-          {!isEditing && <ChatButton onClick={() => setIsOpen(true)} />}
         </div>
       </div>
 

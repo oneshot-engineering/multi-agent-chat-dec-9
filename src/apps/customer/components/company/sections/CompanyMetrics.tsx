@@ -2,7 +2,6 @@ import React from "react";
 import { Users, Calendar, Building2, Briefcase } from "lucide-react";
 import { theme } from "../../../../../shared/utils/theme";
 import { ChatButton } from "../components/ChatButton";
-import { ChatDialog } from "../components/ChatDialog";
 import { useChatDialog } from "../hooks/useChatDialog";
 import type { CompanyData } from "../types";
 
@@ -59,7 +58,6 @@ export function CompanyMetrics({
         >
           Company Metrics
         </h2>
-        {!isEditing && <ChatButton onClick={() => setIsOpen(true)} />}
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -110,15 +108,6 @@ export function CompanyMetrics({
           </div>
         ))}
       </div>
-
-      <ChatDialog
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onSubmit={handleSubmit}
-        title="Ask about Company Metrics"
-        placeholder="Ask about company size, founding, location..."
-        messages={messages}
-      />
     </div>
   );
 }
