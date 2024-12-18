@@ -7,26 +7,27 @@ import {
   BarChart,
   Building2,
   Users2,
+  Edit2,
+  PlayCircle
 } from "lucide-react";
 import { theme } from "../../../../../shared/utils/theme";
-import { ChatButton } from "./ChatButton";
-import { ChatDialog } from "./ChatDialog";
-import { useChatDialog } from "../hooks/useChatDialog";
 import type { Persona } from "../types";
 
 interface PersonaCardProps {
   persona: Persona;
   isEditing: boolean;
   onUpdate: (updatedPersona: Persona) => void;
+  onEdit: () => void;
+  onLaunchCampaign: () => void;
 }
 
 export function PersonaCard({
   persona,
   isEditing,
   onUpdate,
+  onEdit,
+  onLaunchCampaign,
 }: PersonaCardProps) {
-  const { isOpen, setIsOpen, messages, handleSubmit } = useChatDialog();
-
   const handleUpdate = (field: keyof Persona, value: any) => {
     onUpdate({
       ...persona,
@@ -112,7 +113,31 @@ export function PersonaCard({
               </h3>
             )}
           </div>
-          {!isEditing && <ChatButton onClick={() => setIsOpen(true)} />}
+          {!isEditing && (
+            <div className="flex gap-2">
+              <button
+                onClick={onEdit}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors"
+                style={{
+                  backgroundColor: theme.colors.background.secondary,
+                  color: theme.colors.text.primary,
+                }}
+              >
+                <Edit2 className="w-4 h-4" />
+                <span className="text-sm">Edit</span>
+              </button>
+              <button
+                onClick={onLaunchCampaign}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-white transition-colors"
+                style={{
+                  backgroundColor: theme.colors.primary.main,
+                }}
+              >
+                <PlayCircle className="w-4 h-4" />
+                <span className="text-sm">Launch Campaign</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -225,15 +250,6 @@ export function PersonaCard({
           </div>
         </div>
       </div>
-
-      <ChatDialog
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onSubmit={handleSubmit}
-        title={`Ask about ${persona.title}`}
-        placeholder="Ask about problems, solutions, advantages..."
-        messages={messages}
-      />
     </div>
   );
 }

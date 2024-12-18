@@ -8,12 +8,16 @@ interface PersonaCarouselProps {
   personas: Persona[];
   isEditing: boolean;
   onUpdate: (index: number, updatedPersona: Persona) => void;
+  onEdit: () => void;
+  onLaunchCampaign: (persona: Persona) => void;
 }
 
 export function PersonaCarousel({
   personas,
   isEditing,
   onUpdate,
+  onEdit,
+  onLaunchCampaign,
 }: PersonaCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -94,6 +98,8 @@ export function PersonaCarousel({
                 persona={persona}
                 isEditing={isEditing}
                 onUpdate={(updatedPersona) => onUpdate(index, updatedPersona)}
+                onEdit={onEdit}
+                onLaunchCampaign={() => onLaunchCampaign(persona)}
               />
             </div>
           ))}

@@ -1,13 +1,26 @@
-import React from "react";
+import React from 'react';
 import { CompanyHeader } from "./sections/CompanyHeader";
 import { CompanyDescription } from "./sections/CompanyDescription";
 import { CompanyMetrics } from "./sections/CompanyMetrics";
 import { PersonaCarousel } from "./components/PersonaCarousel";
 import { theme } from "../../../../shared/utils/theme";
 import { useCompanyData } from "./hooks/useCompanyData";
+import { useNavigate } from "react-router-dom";
+import type { Persona } from "./types";
 
 export function CompanyProfile() {
+  const navigate = useNavigate();
   const { data, isEditing, setIsEditing, handleUpdate } = useCompanyData();
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleLaunchCampaign = (persona: Persona) => {
+    navigate("/app/customer/campaign/launch", {
+      state: { persona }
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -44,6 +57,8 @@ export function CompanyProfile() {
                 newPersonas[index] = updatedPersona;
                 handleUpdate("personas", newPersonas);
               }}
+              onEdit={handleEdit}
+              onLaunchCampaign={handleLaunchCampaign}
             />
           </div>
         </div>

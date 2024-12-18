@@ -12,11 +12,14 @@ interface OutputPreviewProps {
 
 export function OutputPreview({ message }: OutputPreviewProps) {
   const renderOutput = (response: any) => {
-    if (!response?.output?.type) return null;
+
+    return <CompanyProfile />;
+    
+    /*if (!response?.output?.type) return null;
 
     switch (response.output.type) {
       case "company_profile":
-        return <CompanyProfile />;
+        
 
       case "proposal":
         if (!response.output.data) return null;
@@ -142,7 +145,7 @@ export function OutputPreview({ message }: OutputPreviewProps) {
 
       default:
         return null;
-    }
+    }*/
   };
 
   return (
