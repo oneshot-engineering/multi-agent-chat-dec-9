@@ -1,8 +1,8 @@
 import React from "react";
 import { Header } from "../components/Header";
-import { CompanyProfile } from "../components/company/CompanyProfile";
+import RecruiterCompanyProfile from "../components/company/RecruiterCompanyProfile";
 
-export default function CompanyProfilePage() {
+export default function SalesCompanyProfilePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header
@@ -10,7 +10,7 @@ export default function CompanyProfilePage() {
         title="Company Profile"
         subtitle="View and edit your company information"
       />
-      <CompanyProfile />
+      <RecruiterCompanyProfile />
     </div>
   );
 }

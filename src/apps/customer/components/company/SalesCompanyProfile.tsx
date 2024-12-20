@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { CompanyHeader } from "./sections/CompanyHeader";
 import { CompanyDescription } from "./sections/CompanyDescription";
 import { CompanyMetrics } from "./sections/CompanyMetrics";
@@ -8,7 +8,7 @@ import { useCompanyData } from "./hooks/useCompanyData";
 import { useNavigate } from "react-router-dom";
 import type { Persona } from "./types";
 
-export function CompanyProfile() {
+export function SalesCompanyProfile() {
   const navigate = useNavigate();
   const { data, isEditing, setIsEditing, handleUpdate } = useCompanyData();
 
@@ -18,7 +18,7 @@ export function CompanyProfile() {
 
   const handleLaunchCampaign = (persona: Persona) => {
     navigate("/app/customer/campaign/launch", {
-      state: { persona }
+      state: { persona },
     });
   };
 
