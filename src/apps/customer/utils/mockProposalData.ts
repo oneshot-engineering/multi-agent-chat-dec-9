@@ -64,165 +64,29 @@ export const mockConversation: MockConversation[] = [
   {
     request: {
       sender: "user",
-      data: "Help me put together an outbound strategy.",
+      data: "Setup outbound for oneshot.ai",
     },
     response: {
       sender: "agent",
       data: {
         reasoning:
-          "Sure, I'll help you build the strategy, but I need to understand your company first. What is your company's website?",
+          "Sure, First I built your company profile with all the key personas you sell to.",
+        output: "sales",
       },
     },
   },
+
   {
     request: {
       sender: "user",
-      data: "oneshot.ai",
-    },
-    response: {
-      sender: "agent",
-      data: {
-        reasoning: "I've found your company profile. Let me analyze it for you.",
-        output: {
-          type: "company_profile",
-          data: null
-        }
-      },
-    },
-  },
-  {
-    request: {
-      sender: "user",
-      data: "Yes, let's add target audiences.",
+      data: "Fill open roles for my Talent Pro",
     },
     response: {
       sender: "agent",
       data: {
         reasoning:
-          "Okay, I've now added target audiences like Sales Managers and SDR Managers based on your company profile.",
-        preview: {
-          personas: mockProposal.personas,
-        },
-        question: "Do you want to add key metrics for your outbound campaign?",
-      },
-    },
-  },
-  {
-    request: {
-      sender: "user",
-      data: "Yes, let's add key metrics.",
-    },
-    response: {
-      sender: "agent",
-      data: {
-        reasoning:
-          "I've added key metrics like response rates, meetings booked, and pipeline growth for your campaign.",
-        preview: {
-          KPIs: mockProposal.KPIs,
-        },
-        question: "Should I prepare an execution plan next?",
-      },
-    },
-  },
-  {
-    request: {
-      sender: "user",
-      data: "Yes, prepare an execution plan.",
-    },
-    response: {
-      sender: "agent",
-      data: {
-        reasoning:
-          "I've prepared a detailed week-by-week execution plan for multi-channel outreach.",
-        preview: {
-          execution_plan: mockProposal.execution_plan,
-        },
-        question: "Do you want to prioritize certain channels?",
-      },
-    },
-  },
-  {
-    request: {
-      sender: "user",
-      data: "Yes, let's prioritize Email and LinkedIn.",
-    },
-    response: {
-      sender: "agent",
-      data: {
-        reasoning:
-          "I've prioritized Email and LinkedIn for your outreach efforts and updated the plan.",
-        preview: {
-          channels: mockProposal.channels,
-        },
-        question: "Should we set monthly volume targets for these channels?",
-      },
-    },
-  },
-  {
-    request: {
-      sender: "user",
-      data: "Yes, set monthly targets.",
-    },
-    response: {
-      sender: "agent",
-      data: {
-        reasoning:
-          "Monthly targets have been set for Email, LinkedIn, and Cold Calling, ensuring alignment with your strategy.",
-        preview: {
-          monthly_targets: mockProposal.monthly_targets,
-        },
-        question: "Would you like me to add specific tools for this strategy?",
-      },
-    },
-  },
-  {
-    request: {
-      sender: "user",
-      data: "Yes, let's add tools like CRM and Analytics Dashboard.",
-    },
-    response: {
-      sender: "agent",
-      data: {
-        reasoning:
-          "I've included CRM, Email Automation, and an Analytics Dashboard to support your strategy.",
-        preview: {
-          tools: mockProposal.tools,
-        },
-        question: "Do you want to define expected outcomes?",
-      },
-    },
-  },
-  {
-    request: {
-      sender: "user",
-      data: "Yes, define expected outcomes.",
-    },
-    response: {
-      sender: "agent",
-      data: {
-        reasoning:
-          "I've defined expected outcomes like increased sales efficiency and higher conversion rates.",
-        preview: {
-          expected_outcomes: mockProposal.expected_outcomes,
-        },
-        question: "Anything else to add?",
-      },
-    },
-  },
-  {
-    request: {
-      sender: "user",
-      data: "No, this looks good.",
-    },
-    response: {
-      sender: "agent",
-      data: {
-        reasoning:
-          "Your outbound strategy is now complete, covering all aspects from target audiences to tools and outcomes.",
-        output: {
-          type: "proposal",
-          data: mockProposal
-        },
+          "Sure, First I built your company profile with all the open positions.",
+        output: "recruiter",
       },
     },
   },

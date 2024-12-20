@@ -11,8 +11,11 @@ interface OutputPreviewProps {
 
 export function OutputPreview({ message }: OutputPreviewProps) {
   const renderOutput = (response: any) => {
-    //return <SalesCompanyProfile />;
-    return <RecruiterCompanyProfile></RecruiterCompanyProfile>;
+    debugger;
+    if (message.content.data.reasoning.includes("sell"))
+      return <SalesCompanyProfile />;
+    else if (message.content.data.reasoning.includes("positions"))
+      return <RecruiterCompanyProfile></RecruiterCompanyProfile>;
   };
 
   return (
