@@ -9,7 +9,9 @@ function App() {
   return (
     <Routes>
       {/* Root shows app selection */}
-      <Route path="/" element={<AppSelection />} />
+      <Route path="/selection" element={<AppSelection />} />
+
+      <Route path="/" element={<CustomerApp />} />
 
       {/* Customer App Routes */}
       <Route path="/app/customer/*" element={<CustomerApp />} />
