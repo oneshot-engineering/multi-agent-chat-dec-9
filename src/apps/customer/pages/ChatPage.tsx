@@ -55,8 +55,7 @@ export default function ChatPage() {
 
   const {
     messages,
-    isTyping,
-    selectedOutput,
+    isTyping,    
     handleSendMessage,
     initializeChat,
   } = useChat({
@@ -132,18 +131,7 @@ export default function ChatPage() {
       </div>
 
       <div className="flex-1 overflow-hidden">
-        {selectedOutput ? (
           <OutputPreview message={messages[messages.length - 1]} />
-        ) : (
-          <div className="h-full flex items-center justify-center">
-            <p
-              className="text-lg"
-              style={{ color: theme.colors.text.secondary }}
-            >
-              Please chat with assistant to build out proposal.
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
