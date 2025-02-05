@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Brain, Users, Building2, UserCircle2, Mail, Linkedin, Phone, Rocket, ArrowRight, Sparkles, ChevronDown, ChevronUp, CheckCircle, Star, TrendingUp, Target } from 'lucide-react';
 import { theme } from '../../../shared/utils/theme';
+import { ExpertMatchingModal } from './ExpertMatchingModal';
 
 interface StepAgent {
   ai: {
@@ -276,6 +277,8 @@ export function StepsPreview() {
   const [activeSteps, setActiveSteps] = useState<string[]>([]);
   const [showContent, setShowContent] = useState(false);
   const [expandedStep, setExpandedStep] = useState<string | null>(null);
+  const [showMatchingModal, setShowMatchingModal] = useState(false);
+  const [selectedStep, setSelectedStep] = useState<{color: string; title: string} | null>(null);
 
   useEffect(() => {
     setTimeout(() => setShowContent(true), 100);
@@ -285,6 +288,11 @@ export function StepsPreview() {
       }, (index + 1) * 800);
     });
   }, []);
+
+  const handleMatchExperts = (step: typeof steps[0]) => {
+    setSelectedStep({ color: step.color, title: step.title });
+    setShowMatchingModal(true);
+  };
 
   const totalProgress = (activeSteps.length / steps.length) * 100;
 
@@ -529,13 +537,26 @@ export function StepsPreview() {
                                   </div>
                                 </div>
 
-                                <button
-                                  className="w-full py-3 px-4 rounded-lg text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:opacity-90"
-                                  style={{ backgroundColor: step.color }}
-                                >
-                                  Start {step.title}
-                                  <ArrowRight className="w-5 h-5" />
-                                </button>
+                                <div className="flex gap-4">
+                                  <button
+                                    onClick={() => handleMatchExperts(step)}
+                                    className="flex-1 py-3 px-4 rounded-lg font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:opacity-90 border-2"
+                                    style={{ 
+                                      borderColor: step.color,
+                                      color: step.color
+                                    }}
+                                  >
+                                    <Users className="w-5 h-5" />
+                                    Match Experts
+                                  </button>
+                                  <button
+                                    className="flex-1 py-3 px-4 rounded-lg text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:opacity-90"
+                                    style={{ backgroundColor: step.color }}
+                                  >
+                                    Start {step.title}
+                                    <ArrowRight className="w-5 h-5" />
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -569,6 +590,15 @@ export function StepsPreview() {
           </div>
         </div>
       </div>
+
+      {showMatchingModal && selectedStep && (
+        <ExpertMatchingModal
+          isOpen={showMatchingModal}
+          onClose={() => setShowMatchingModal(false)}
+          stepColor={selectedStep.color}
+          stepTitle={selectedStep.title}
+        />
+      )}
     </div>
   );
 }
