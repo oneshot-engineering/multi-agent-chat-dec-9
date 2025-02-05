@@ -11,8 +11,9 @@ interface OutputPreviewProps {
 }
 
 export function OutputPreview({ message }: OutputPreviewProps) {
-  
   return (
-    <StepsPreview />
+    <div className="h-full overflow-hidden">
+      <StepsPreview />
+    </div>
   );
 }
